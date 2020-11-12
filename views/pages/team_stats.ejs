@@ -1,0 +1,58 @@
+<%- include('../partials/header') %>
+<%- include('../partials/menu') %>
+	<div class="container">
+		<br>
+		<div class="jumbotron">
+		  <h1 class="display-4">Fall 2018 Stats</h1>
+		  <p class="lead">Detailed information on how the Buffs are doing in the 2018 Football Season!</p>
+		</div>
+		
+		<table class="table table-bordered" id="stats_table">
+			<tr>
+				<th class="align-bottom" rowspan="2">Game Date</th>
+				<th class="align-bottom"rowspan="2">Opposing Team Name</th>
+				<th class="text-center" colspan="2">Score</th>
+				<th class="align-bottom" rowspan="2">Winner</th>
+			</tr>
+			<tr>
+				<th>Home Score</th>
+				<th>Opp. Score</th>
+			</tr>
+
+			<%
+			if (game_table) {
+    			var rows = '';
+				game_table.forEach(function(item){
+  		 			rows += '<tr><td>' + item.game_date + '</td><td>' + item.visitor_name + '</td><td>'+ item.home_score +'</td><td>'+ item.visitor_score +'</td><td>';
+  		 			if (item.home_score > item.visitor_score) {
+  		 				rows += 'CU Boulder</td></tr>';
+  		 			} else {
+  		 				rows += item.visitor_name + '</td></tr>';
+  		 			}
+				}); %>
+  	 		<%- rows %>
+			<% } %>
+			<!-- TODO: Iterate over the Football_table data here 
+						1. Display the information for each row (date, name, home score, visitor score)
+						2. Determine who the winner is and display it in the final column
+
+						If you're not sure how the logic should work here, review the code you add to the client-side javascript
+						that ran onload for Lab 5.  We are doing the same kind of operations we had in Lab 5, but we are instead having
+						everything handled via server-side scriptes
+			-->
+			
+		</table>
+		<br>
+		<table class="table text-center">
+			<tr>
+				<th>wins</th>
+				<th>losses</th>
+			</tr>
+			<tr>
+				<td><%- wins %></td>
+				<td><%- loses %></td>
+			</tr>
+		</table>
+		
+	</div>
+<%- include('../partials/footer') %>

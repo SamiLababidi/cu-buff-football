@@ -1,0 +1,71 @@
+<%- include('../partials/header') %>
+<%- include('../partials/menu') %>
+	<div class="container">
+		<br>
+		<div class="row">
+			<div class="col-4">
+				<div class="card">
+				<!-- TODO: Modify the ejs code below, to conditionally set the image_src to be from our chosen player -->
+				<%
+				if (player) {
+				  var image_src = player.img_src;
+				}
+				else {
+				  var image_src = '../resources/img/helmet.jpg';
+				}
+				  
+				%>
+				 <img class="card-img-top" id="player_img" src= "<%- image_src %>" alt="Image of Football Player">
+				  <div class="card-body mx-auto">
+					<form class="form"action="/player_info/post" method="get">
+						<select class="custom-select" name="player_choice" onchange="this.form.submit()">
+							<% if(player) { var selected = player.name;} else{var selected = "Select Player";} %>
+							<option selected><%- selected %></option>
+							<% 
+							if (data) {
+								options = '';
+								data.forEach(function(item){
+							 		options += `<option value="${item.id}">${item.name}</option>`;
+							 	}); %>
+							<%- options %>
+							<% } %>
+						</select>
+					</form>
+				  </div>
+				</div>
+			</div>
+			<div class="col-8">
+				<div class="table-responsive">
+					<table class="table">
+						<tr>
+							
+							<th>Year</th>
+							<td><%- player.year %></td>
+						</tr>
+						<tr>
+							<th>Major</th>
+							<td><%- player.major %></td>
+						</tr>
+						<tr>
+							<th>Games Played</th>
+							<td><%- num_of_games %></td>
+						</tr>
+						<tr>
+							<td>Passing Yards: <%- player.passing_yards %></td>
+							<td>Avg. Passing Yards: <%- player.passing_yards/num_of_games %></td>
+						</tr>
+						<tr>
+							<td>Rushing Yards: <%- player.rushing_yards %></td>
+							<td>Avg. Rushing Yards: <%- player.rushing_yards/num_of_games %></td>
+						</tr>
+						<tr>
+							<td>Receiving Yards: <%- player.receiving_yards %></td>
+							<td>Avg. Receiving Yards: <%- player.receiving_yards/num_of_games %></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+  
+<%- include('../partials/footer') %>
