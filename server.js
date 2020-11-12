@@ -30,7 +30,9 @@ const dbConfig = {
 	password: 'password'
 };
 
-var db = pgp(dbConfig);
+const isProduction = process.env.NODE_ENV === 'production';
+dbConfig = isProduction ? process.env.DATABASE_URL : dbConfig;
+let db = pgp(dbConfig);
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
@@ -270,6 +272,11 @@ app.get('/player_info/post', function(req, res) {
         })
 })
 
+const PORT = process.env.PORT || 8080;
 
-app.listen(3000);
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 3000;
+}
+app.listen(port);
 console.log('3000 is the magic port');
