@@ -48,8 +48,8 @@ app.use(express.static(__dirname + '/'));//This line is necessary for us to use 
 
  Web Page Requests:
 
-  Login Page:        Provided For your (can ignore this page)
-  Registration Page: Provided For your (can ignore this page)
+  Login Page        
+  Registration Page 
   Home Page:
   		/home - get request (no parameters) 
   				This route will make a single query to the favorite_colors table to retrieve all of the rows of colors
@@ -122,9 +122,9 @@ app.get('/home', function(req, res) {
 });
 
 app.get('/home/pick_color', function(req, res) {
-  var color_choice = req.query.color_selection; // Investigate why the parameter is named "color_selection"
-  var color_options = `select * from favorite_colors;`;// Write a SQL query to retrieve the colors from the database
-  var color_message = `select color_msg from favorite_colors where hex_value = '${color_choice}';`;// Write a SQL query to retrieve the color message for the selected color
+  var color_choice = req.query.color_selection; 
+  var color_options = `select * from favorite_colors;`;
+  var color_message = `select color_msg from favorite_colors where hex_value = '${color_choice}';`;
   db.task('get-everything', task => {
         return task.batch([
             task.any(color_options),
@@ -156,7 +156,7 @@ app.post('/home/pick_color', function(req, res) {
   var color_name = req.body.color_name;
   var color_message = req.body.color_message;
   var insert_statement = `insert into favorite_colors values ('${color_hex}', '${color_name}', '${color_message}');`;
-  var color_select = 'select * from favorite_colors;';// Write a SQL statement to retrieve all of the colors in the favorite_colors table
+  var color_select = 'select * from favorite_colors;';// SQL statement to retrieve all of the colors in the favorite_colors table
 
   db.task('get-everything', task => {
         return task.batch([
@@ -243,7 +243,7 @@ app.get('/player_info/post', function(req, res) {
   var player_info = `select * from football_players where id = ${player_id};`;
   var total_number_of_games = `select count(g.*) from football_games g, 
                               (select id from football_players where id = ${player_id}) p 
-                              where p.id = any(g.players);`; // this query will retrieve that total number of games for the selected player
+                              where p.id = any(g.players);`; // Retrieve that total number of games for the selected player
 
   db.task('get-everything', task => {
         return task.batch([
